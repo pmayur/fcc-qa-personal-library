@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-var Comment = require("./Comment");
 
 var Schema = mongoose.Schema;
 
@@ -8,11 +7,12 @@ var BookSchema = new Schema(
         title: {
             type: String,
             required: true,
+            minlength: 1,
         },
         comments: [
             {
                 type: Schema.Types.ObjectId,
-                ref: Comment,
+                ref: 'Comment',
             },
         ],
     },
