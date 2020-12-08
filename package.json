@@ -16,6 +16,7 @@
 		"mocha": "^3.2.0",
 		"mongodb": "^3.6.2",
 		"mongoose": "^5.11.5",
+		"random-name": "^0.1.2",
 		"zombie": "^5.0.5"
 	},
 	"engines": {
