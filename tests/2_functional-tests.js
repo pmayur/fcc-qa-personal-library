@@ -21,7 +21,9 @@ suite("Functional Tests", function () {
      * ----[EXAMPLE TEST]----
      * Each test should completely test the response of the API end-point including response status code!
      */
-    test("#example Test GET /api/books", function (done) {
+
+    // UNCOMMENT UPON IMPLEMENTATION
+    /* test("#example Test GET /api/books", function (done) {
         chai.request(server)
             .get("/api/books")
             .end(function (err, res) {
@@ -44,7 +46,7 @@ suite("Functional Tests", function () {
                 );
                 done();
             });
-    });
+    }); */
     /*
      * ----[END of EXAMPLE TEST]----
      */
@@ -78,7 +80,7 @@ suite("Functional Tests", function () {
                         })
                         .end(function (err, res) {
                             assert.equal(res.status, 200);
-                            assert.equal(res.body, "missing required field title");
+                            assert.equal(res.text, "missing required field title");
                             assert.notExists(err);
                             done();
                         });
@@ -92,7 +94,7 @@ suite("Functional Tests", function () {
                       })
                       .end(function (err, res) {
                           assert.equal(res.status, 200);
-                          assert.equal(res.body, "missing required field title");
+                          assert.equal(res.text, "missing required field title");
                           assert.notExists(err);
                           done();
                       });
@@ -100,6 +102,7 @@ suite("Functional Tests", function () {
             }
         );
 
+        // UNCOMMENT UPON IMPLEMENTATION
         /* suite("GET /api/books => array of books", function () {
             test("Test GET /api/books", function (done) {
                 //done();
