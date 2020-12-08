@@ -9,6 +9,29 @@ const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
 
+// Import the mongoose model
+const mongoose = require('mongoose');
+
+// database uri
+const mongoDBURI     = process.env.DB;
+
+//Set up default mongoose connection
+mongoose.connect(
+  mongoDBURI,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    autoReconnect: false
+  },
+  (err) => {
+    if(err) {
+      console.log("MongoDB connection error:", err.message)
+    } else {
+      console.log("MongoDB connected")
+    }
+  }
+);
+
 const app = express();
 
 app.use('/public', express.static(process.cwd() + '/public'));
@@ -27,9 +50,9 @@ app.route('/')
 //For FCC testing purposes
 fccTestingRoutes(app);
 
-//Routing for API 
-apiRoutes(app);  
-    
+//Routing for API
+apiRoutes(app);
+
 //404 Not Found Middleware
 app.use(function(req, res, next) {
   res.status(404)
