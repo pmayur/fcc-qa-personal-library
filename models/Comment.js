@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var CommentSchema = new Schema(
     {
-        book: {
+        bookId: {
             type: Schema.Types.ObjectId,
             ref: 'Book',
         },
