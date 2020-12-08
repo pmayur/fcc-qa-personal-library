@@ -1,4 +1,5 @@
 var random = require("random-name");
+var Book = require('../models/Book');
 
 class TestUtils {
     constructor() {
@@ -24,6 +25,29 @@ class TestUtils {
     get randomComment() {
         var randomIndex = Math.floor(Math.random()*(this.commentNonsense.length));
         return this.commentNonsense[randomIndex];
+    }
+
+    get randomString() {
+        return random.place();
+    }
+
+    getBookIdFromDatabase() {
+        // returns new promise
+        return new Promise((resolve, reject) => {
+
+            // find all books from the database
+            Book.find({}, (err, allBooks) => {
+                // reject promise if error on finding
+                if(err) reject(err);
+
+                else {
+                    // creates a random number between 0 and allBooks length
+                    let randomIndex = Math.floor(Math.random()*(allBooks.length));
+                    let foundId = allBooks[randomIndex]._id;
+                    resolve(foundId);
+                }
+            });
+        });
     }
 }
 
