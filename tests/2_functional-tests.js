@@ -117,26 +117,71 @@ suite("Functional Tests", function () {
             test("Test GET /api/books/[id] with valid id in db", function (done) {
                 //done();
             });
-        });
+        }); */
 
         suite(
             "POST /api/books/[id] => add comment/expect book object with id",
             function () {
-                test("Test POST /api/books/[id] with comment", function (done) {
-                    //done();
+                test("Test POST /api/books/[id] with comment", async function (done) {
+
+                    let id      = await util.getBookIdFromDatabase();
+                    let comment = util.randomComment;
+
+                    chai.request(server)
+                        .post(`/api/books/${id}`)
+                        .send({
+                            comment
+                        })
+                        .end(function (err, res) {
+                            assert.equal(res.status, 200);
+                            assert.isArray(res.body.comments);
+                            assert.equal(res.body._id, id);
+                            assert.exists(req.body.title);
+                            assert.exists(req.body.commentCount);
+                            assert.notExists(err);
+                            done();
+                        });
                 });
 
-                test("Test POST /api/books/[id] without comment field", function (done) {
-                    //done();
+                test("Test POST /api/books/[id] without comment field", async function (done) {
+
+                    let id      =  await util.getBookIdFromDatabase();
+                    let comment = undefined;
+
+                    chai.request(server)
+                        .post(`/api/books/${id}`)
+                        .send({
+                            comment
+                        })
+                        .end(function (err, res) {
+                            assert.equal(res.status, 200);
+                            assert.equal(res.text, "missing required field comment");
+                            assert.notExists(err);
+                            done();
+                        });
                 });
 
                 test("Test POST /api/books/[id] with comment, id not in db", function (done) {
-                    //done();
+
+                    let id      = util.randomString;
+                    let comment = util.randomComment;
+
+                    chai.request(server)
+                        .post(`/api/books/${id}`)
+                        .send({
+                            comment
+                        })
+                        .end(function (err, res) {
+                            assert.equal(res.status, 200);
+                            assert.equal(res.text, "no book exists");
+                            assert.notExists(err);
+                            done();
+                        });
                 });
             }
         );
 
-        suite("DELETE /api/books/[id] => delete book object id", function () {
+        /* suite("DELETE /api/books/[id] => delete book object id", function () {
             test("Test DELETE /api/books/[id] with valid id in db", function (done) {
                 //done();
             });
