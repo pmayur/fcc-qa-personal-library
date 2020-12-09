@@ -26,9 +26,6 @@ module.exports = function (app) {
 
     .post(require('./controllers/add-comment'))
 
-    .delete(function(req, res){
-      let bookid = req.params.id;
-      //if successful response will be 'delete successful'
-    });
+    .delete(require('./controllers/delete-book'))
 
 };
