@@ -9,11 +9,12 @@ module.exports = function (req, res) {
 
         try {
 
-            await book.populate('comments').execPopulate();
+            // populate if book has comments
+            if( book.comments.length)
+                await book.populate('comments').execPopulate();
 
-        // if book does not have any comments
         } catch (e) {
-            console.log(e.message)
+            return res.send("no book exists")
         }
 
         return res.json({
