@@ -122,9 +122,14 @@ suite("Functional Tests", function () {
         suite(
             "POST /api/books/[id] => add comment/expect book object with id",
             function () {
-                test("Test POST /api/books/[id] with comment", async function (done) {
+                let id;
 
-                    let id      = await util.getBookIdFromDatabase();
+                beforeEach( async () => {
+                    id      = await util.getBookIdFromDatabase();
+                });
+
+                test("Test POST /api/books/[id] with comment", function (done) {
+
                     let comment = util.randomComment;
 
                     chai.request(server)
@@ -135,6 +140,7 @@ suite("Functional Tests", function () {
                         .end(function (err, res) {
                             assert.equal(res.status, 200);
                             assert.isArray(res.body.comments);
+                            assert.isAtLeast(res.body.comments.length, 1)
                             assert.equal(res.body._id, id);
                             assert.exists(req.body.title);
                             assert.exists(req.body.commentCount);
@@ -143,9 +149,9 @@ suite("Functional Tests", function () {
                         });
                 });
 
-                test("Test POST /api/books/[id] without comment field", async function (done) {
 
-                    let id      =  await util.getBookIdFromDatabase();
+                test("Test POST /api/books/[id] without comment field", function (done) {
+
                     let comment = undefined;
 
                     chai.request(server)
@@ -163,7 +169,7 @@ suite("Functional Tests", function () {
 
                 test("Test POST /api/books/[id] with comment, id not in db", function (done) {
 
-                    let id      = util.randomString;
+                    id          = util.randomString;
                     let comment = util.randomComment;
 
                     chai.request(server)
