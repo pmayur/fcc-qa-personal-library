@@ -49,6 +49,22 @@ class TestUtils {
             });
         });
     }
+
+    getTotalOfBooksInDatabase() {
+        // returns new promise
+        return new Promise((resolve, reject) => {
+
+            // find all books from the database
+            Book.find({}, (err, allBooks) => {
+                // reject promise if error on finding
+                if(err) reject(err);
+
+                else {
+                    resolve(allBooks.length);
+                }
+            });
+        });
+    }
 }
 
 module.exports = TestUtils;
