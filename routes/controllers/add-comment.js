@@ -10,7 +10,7 @@ module.exports = function (req, res) {
             .findById(id)
             .exec( async (err, foundBook) => {
 
-                if(err) return res.send("no book exists")
+                if(err || !foundBook) return res.send("no book exists")
 
                 try {
 
