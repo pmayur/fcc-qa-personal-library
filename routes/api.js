@@ -30,11 +30,7 @@ module.exports = function (app) {
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
     })
 
-    .post(function(req, res){
-      let bookid = req.params.id;
-      let comment = req.body.comment;
-      //json res format same as .get
-    })
+    .post(require('./controllers/add-comment'))
 
     .delete(function(req, res){
       let bookid = req.params.id;
