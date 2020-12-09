@@ -124,7 +124,7 @@ suite("Functional Tests", function () {
             function () {
                 let id;
 
-                beforeEach( async () => {
+                before( async () => {
                     id      = await util.getBookIdFromDatabase();
                 });
 
@@ -142,8 +142,29 @@ suite("Functional Tests", function () {
                             assert.isArray(res.body.comments);
                             assert.isAtLeast(res.body.comments.length, 1)
                             assert.equal(res.body._id, id);
-                            assert.exists(req.body.title);
-                            assert.exists(req.body.commentCount);
+                            assert.exists(res.body.title);
+                            assert.exists(res.body.commentcount);
+                            assert.notExists(err);
+                            done();
+                        });
+                });
+
+                test("Test add another comment to the same book", function (done) {
+
+                    let comment = util.randomComment;
+
+                    chai.request(server)
+                        .post(`/api/books/${id}`)
+                        .send({
+                            comment
+                        })
+                        .end(function (err, res) {
+                            assert.equal(res.status, 200);
+                            assert.isArray(res.body.comments);
+                            assert.isAtLeast(res.body.comments.length, 1)
+                            assert.equal(res.body._id, id);
+                            assert.exists(res.body.title);
+                            assert.exists(res.body.commentcount);
                             assert.notExists(err);
                             done();
                         });
