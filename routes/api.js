@@ -15,9 +15,7 @@ module.exports = function (app) {
 
     .post(require('./controllers/add-book'))
 
-    .delete(function(req, res){
-      //if successful response will be 'complete delete successful'
-    });
+    .delete(require('./controllers/delete-allBooks'));
 
 
 
