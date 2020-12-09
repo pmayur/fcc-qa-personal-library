@@ -18,6 +18,6 @@ var CommentSchema = new Schema(
 );
 
 // Create a model from the schema
-const Comment = mongoose.model("Comments", CommentSchema);
+const Comment = mongoose.model("Comment", CommentSchema);
 
 module.exports = Comment;
