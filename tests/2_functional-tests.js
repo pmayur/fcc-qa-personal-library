@@ -273,7 +273,6 @@ suite("Functional Tests", function () {
             });
 
             test("Test deleted id not present in db", function (done) {
-                console.log(id)
                 chai.request(server)
                         .get(`/api/books/${id}`)
                         .end(function (err, res) {
