@@ -22,10 +22,7 @@ module.exports = function (app) {
 
 
   app.route('/api/books/:id')
-    .get(function (req, res){
-      let bookid = req.params.id;
-      //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
-    })
+    .get(require('./controllers/get-book'))
 
     .post(require('./controllers/add-comment'))
 
