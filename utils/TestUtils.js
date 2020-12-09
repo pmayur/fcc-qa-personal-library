@@ -16,6 +16,9 @@ class TestUtils {
             "Look! In the sky. It&#039;s a bird, it's a plane. Or is it a hellicopter? No actually I think it is a bird. Or maybe I&#039;m just seeing things. Who knows... After 10 shots of Whiskey things start to get a bit strange.",
             "I like to say things twice, say things twice. It can get annoying though, annoying though."
         );
+
+        // seed database with one book to test
+        new Book({ title: "Moby Dick" }).save();
     }
 
     get randomName() {
