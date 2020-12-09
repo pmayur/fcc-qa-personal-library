@@ -7,7 +7,14 @@ module.exports = function (req, res) {
     Book.findById(bookid).exec( async function(err, book) {
         if(err) return res.send("no book exists")
 
-        await book.populate('comments').execPopulate();
+        try {
+
+            await book.populate('comments').execPopulate();
+
+        // if book does not have any comments
+        } catch (e) {
+            console.log(e.message)
+        }
 
         return res.json({
             comments        : filterComments(book.comments),
