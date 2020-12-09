@@ -22,7 +22,6 @@ suite("Functional Tests", function () {
      * Each test should completely test the response of the API end-point including response status code!
      */
 
-    // UNCOMMENT UPON IMPLEMENTATION
     test("#example Test GET /api/books", function (done) {
         chai.request(server)
             .get("/api/books")
@@ -255,14 +254,49 @@ suite("Functional Tests", function () {
             }
         );
 
-        /* suite("DELETE /api/books/[id] => delete book object id", function () {
+        suite("DELETE /api/books/[id] => delete book object id", function () {
+            let id;
+
+            before( async() => {
+                id = await util.getBookIdFromDatabase();
+            })
+
             test("Test DELETE /api/books/[id] with valid id in db", function (done) {
-                //done();
+                chai.request(server)
+                        .delete(`/api/books/${id}`)
+                        .end(function (err, res) {
+                            assert.notExists(err);
+                            assert.equal(res.status, 200);
+                            assert.equal(res.text, "delete successful");
+                            done();
+                        });
+            });
+
+            test("Test deleted id not present in db", function (done) {
+                console.log(id)
+                chai.request(server)
+                        .get(`/api/books/${id}`)
+                        .end(function (err, res) {
+                            assert.equal(res.status, 200);
+                            assert.equal(res.text, "no book exists");
+                            assert.notExists(err);
+                            done();
+                        });
             });
 
             test("Test DELETE /api/books/[id] with  id not in db", function (done) {
-                //done();
+
+                id = util.randomString;
+
+                chai.request(server)
+                        .delete(`/api/books/${id}`)
+                        .end(function (err, res) {
+                            assert.equal(res.status, 200);
+                            assert.equal(res.text, "no book exists");
+                            assert.notExists(err);
+                            done();
+                        });
             });
-        }); */
+        });
     });
 });
